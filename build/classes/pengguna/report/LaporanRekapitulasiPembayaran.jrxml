@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8524a9c8-89e8-438c-b6a9-42c4d1700b2a">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#008000">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Pembayaran" uuid="780af9d6-9427-4f81-a778-383f12bb00b2">
+		<parameter name="Tahun" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT pembayaran.tgl_bayar, monthname(pembayaran.tgl_bayar) as bulan, ifnull((Select sum(pem.jumlah_bayar) from pembayaran pem WHERE year(pem.tgl_bayar) = year(pembayaran.tgl_bayar) and month(pem.tgl_bayar) = month(pembayaran.tgl_bayar)),0) as total FROM `pembayaran` where year(pembayaran.tgl_bayar) = $P{Tahun} GROUP BY bulan ORDER BY month(pembayaran.tgl_bayar)]]>
+		</queryString>
+		<field name="tgl_bayar" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="bulan" class="java.lang.String"/>
+		<field name="total" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="Tahun" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{tahun}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     MONTHNAME(pembayaran.`tgl_bayar`) AS nama_bulan,
+year(pembayaran.tgl_bayar) as tahun,
+month(pembayaran.tgl_bayar) as bulan
+FROM
+     `pembayaran` pembayaran]]>
+	</queryString>
+	<field name="nama_bulan" class="java.lang.String"/>
+	<field name="tahun" class="java.lang.Long"/>
+	<field name="bulan" class="java.lang.Long"/>
+	<group name="Main Page">
+		<groupExpression><![CDATA[$F{nama_bulan}]]></groupExpression>
+		<groupHeader>
+			<band height="146">
+				<image>
+					<reportElement uuid="871d1ce3-c852-4f68-968e-f57ba545a3e7" x="0" y="0" width="176" height="94"/>
+					<imageExpression><![CDATA["C:\\Users\\WILDAN\\Documents\\NetBeansProjects\\SistemAdministrasiBuPer\\src\\asset\\Webp.net-resizeimage (1).png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement uuid="01fd7c4b-c514-4fbe-bf1d-14c2ec36ff15" x="199" y="18" width="325" height="28"/>
+					<textElement textAlignment="Center">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Laporan Rekapitulasi Pembayaran ]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="a4760454-2899-4306-96ee-8a376424c4c4" x="199" y="46" width="325" height="30"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tahun "+$F{tahun}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement uuid="948ba2ea-06ca-4454-ad00-19fa67698a40" x="238" y="0" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Detail Page">
+		<groupExpression><![CDATA[$F{nama_bulan}]]></groupExpression>
+		<groupHeader>
+			<band height="597">
+				<componentElement>
+					<reportElement uuid="1f16fd82-d868-4a99-9516-27b41dc015d7" key="table" style="table" x="0" y="0" width="555" height="597"/>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Pembayaran" uuid="9d6cbe39-5796-45eb-8847-204dfc737041">
+							<datasetParameter name="Tahun">
+								<datasetParameterExpression><![CDATA[$F{tahun}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="272" uuid="896a48b2-aef8-4d6a-9ed5-c72d07bace79">
+							<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="fabbc3b3-f705-4779-ade0-559b2354d38e" x="1" y="0" width="271" height="30"/>
+									<box leftPadding="0"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Bulan]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="de39cf1d-ae1f-490c-b72f-b6d8f9b2d254" x="0" y="0" width="272" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{bulan}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="279" uuid="49b3c5ff-c3f2-4197-8870-c9c2fa540195">
+							<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="87832520-13f5-453a-a98b-ce0ee5cce467" x="0" y="0" width="279" height="30"/>
+									<box leftPadding="0"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Total]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="075cc3cb-d4c3-42e1-b1c2-8cfaa345dc3c" x="0" y="0" width="279" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA["Rp. "+$F{total}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>

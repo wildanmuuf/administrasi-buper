@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="91e17c76-8c56-4bba-affc-976a7fc83638">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#D2691E">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFDABF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#D2691E">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFDABF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#D2691E">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFDABF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#D2691E">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#F6EDAE">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Fasilitas" whenResourceMissingType="Error" uuid="a43da326-d09a-4b8a-bfc1-76fa3f23a990">
+		<parameter name="Kode Transaksi" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$F{transaksi_kode_transaksi}]]></defaultValueExpression>
+		</parameter>
+		<parameter name="Connection" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{REPORT_CONNECTION}]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     detail_transaksi.`kode_transaksi` AS detail_transaksi_kode_transaksi,
+     detail_transaksi.`kode_fasilitas` AS detail_transaksi_kode_fasilitas,
+     detail_transaksi.`jumlah_fasilitas` AS detail_transaksi_jumlah_fasilitas,
+     detail_transaksi.`tmp_stok` AS detail_transaksi_tmp_stok,
+     fasilitas.`kode_fasilitas` AS fasilitas_kode_fasilitas,
+     fasilitas.`nama_fasilitas` AS fasilitas_nama_fasilitas,
+     fasilitas.`harga_fasilitas` AS fasilitas_harga_fasilitas,
+     fasilitas.`status_fasilitas` AS fasilitas_status_fasilitas,
+     fasilitas.`aktif` AS fasilitas_aktif,
+     fasilitas.`perubahan_terakhir` AS fasilitas_perubahan_terakhir,
+     fasilitas.`stok` AS fasilitas_stok,
+(fasilitas.harga_fasilitas*detail_transaksi.jumlah_fasilitas) as total,
+     transaksi.`kode_transaksi` AS transaksi_kode_transaksi,
+     transaksi.`tanggal_transaksi` AS transaksi_tanggal_transaksi,
+     transaksi.`tanggal_mulai` AS transaksi_tanggal_mulai,
+     transaksi.`tanggal_akhir` AS transaksi_tanggal_akhir,
+     transaksi.`total_tagihan` AS transaksi_total_tagihan,
+     transaksi.`total_peserta` AS transaksi_total_peserta,
+     transaksi.`status` AS transaksi_status,
+     transaksi.`kode_instansi` AS transaksi_kode_instansi,
+     transaksi.`nip` AS transaksi_nip,
+     transaksi.`status_pembayaran` AS transaksi_status_pembayaran
+FROM
+     `fasilitas` fasilitas INNER JOIN `detail_transaksi` detail_transaksi ON fasilitas.`kode_fasilitas` = detail_transaksi.`kode_fasilitas`
+     INNER JOIN `transaksi` transaksi ON detail_transaksi.`kode_transaksi` = transaksi.`kode_transaksi`
+where transaksi.`kode_transaksi` = $P{Kode Transaksi}]]>
+		</queryString>
+		<field name="detail_transaksi_kode_transaksi" class="java.lang.String"/>
+		<field name="detail_transaksi_kode_fasilitas" class="java.lang.String"/>
+		<field name="detail_transaksi_jumlah_fasilitas" class="java.lang.Integer"/>
+		<field name="detail_transaksi_tmp_stok" class="java.lang.Integer"/>
+		<field name="fasilitas_kode_fasilitas" class="java.lang.String"/>
+		<field name="fasilitas_nama_fasilitas" class="java.lang.String"/>
+		<field name="fasilitas_harga_fasilitas" class="java.lang.Integer"/>
+		<field name="fasilitas_status_fasilitas" class="java.lang.String"/>
+		<field name="fasilitas_aktif" class="java.lang.String"/>
+		<field name="fasilitas_perubahan_terakhir" class="java.lang.String"/>
+		<field name="fasilitas_stok" class="java.lang.Integer"/>
+		<field name="total" class="java.lang.Long"/>
+		<field name="transaksi_kode_transaksi" class="java.lang.String"/>
+		<field name="transaksi_tanggal_transaksi" class="java.lang.String"/>
+		<field name="transaksi_tanggal_mulai" class="java.lang.String"/>
+		<field name="transaksi_tanggal_akhir" class="java.lang.String"/>
+		<field name="transaksi_total_tagihan" class="java.lang.Integer"/>
+		<field name="transaksi_total_peserta" class="java.lang.Integer"/>
+		<field name="transaksi_status" class="java.lang.String"/>
+		<field name="transaksi_kode_instansi" class="java.lang.String"/>
+		<field name="transaksi_nip" class="java.lang.String"/>
+		<field name="transaksi_status_pembayaran" class="java.lang.String"/>
+		<variable name="FINAL_TOTAL" class="java.lang.Integer" resetType="None" calculation="Sum">
+			<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="Golongan" uuid="e97d1e61-0337-4574-ba9a-5eb0523d6146">
+		<parameter name="Kode Instansi" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$F{instansi_kode_instansi}]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     detail_instansi.`kode_instansi` AS detail_instansi_kode_instansi,
+     detail_instansi.`kode_golongan` AS detail_instansi_kode_golongan,
+     detail_instansi.`jumlah_peserta` AS detail_instansi_jumlah_peserta,
+     detail_instansi.`jumlah_panitia` AS detail_instansi_jumlah_panitia,
+     detail_instansi.`jumlah_pembina` AS detail_instansi_jumlah_pembina,
+     golongan.`kode_golongan` AS golongan_kode_golongan,
+     golongan.`nama_golongan` AS golongan_nama_golongan,
+     golongan.`harga` AS golongan_harga,
+     golongan.`perubahan_terakhir` AS golongan_perubahan_terakhir,
+CAST((golongan.harga*detail_instansi.jumlah_peserta) AS UNSIGNED) AS total,
+     instansi.`kode_instansi` AS instansi_kode_instansi,
+     instansi.`nama_instansi` AS instansi_nama_instansi,
+     instansi.`penanggung_jawab` AS instansi_penanggung_jawab,
+     instansi.`alamat_instansi` AS instansi_alamat_instansi,
+     instansi.`nomor_telp` AS instansi_nomor_telp,
+     instansi.`email` AS instansi_email,
+     instansi.`perubahan_terakhir` AS instansi_perubahan_terakhir
+FROM
+     `golongan` golongan INNER JOIN `detail_instansi` detail_instansi ON golongan.`kode_golongan` = detail_instansi.`kode_golongan`
+     INNER JOIN `instansi` instansi ON detail_instansi.`kode_instansi` = instansi.`kode_instansi`
+where instansi.`kode_instansi` = $P{Kode Instansi}]]>
+		</queryString>
+		<field name="detail_instansi_kode_instansi" class="java.lang.String"/>
+		<field name="detail_instansi_kode_golongan" class="java.lang.String"/>
+		<field name="detail_instansi_jumlah_peserta" class="java.lang.Integer"/>
+		<field name="detail_instansi_jumlah_panitia" class="java.lang.Integer"/>
+		<field name="detail_instansi_jumlah_pembina" class="java.lang.Integer"/>
+		<field name="golongan_kode_golongan" class="java.lang.String"/>
+		<field name="golongan_nama_golongan" class="java.lang.String"/>
+		<field name="golongan_harga" class="java.lang.String"/>
+		<field name="golongan_perubahan_terakhir" class="java.lang.String"/>
+		<field name="total" class="java.math.BigInteger"/>
+		<field name="instansi_kode_instansi" class="java.lang.String"/>
+		<field name="instansi_nama_instansi" class="java.lang.String"/>
+		<field name="instansi_penanggung_jawab" class="java.lang.String"/>
+		<field name="instansi_alamat_instansi" class="java.lang.String"/>
+		<field name="instansi_nomor_telp" class="java.lang.String"/>
+		<field name="instansi_email" class="java.lang.String"/>
+		<field name="instansi_perubahan_terakhir" class="java.lang.String"/>
+		<variable name="FINAL_TOTAL" class="java.lang.Integer" resetType="None" calculation="Sum">
+			<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="Kode Transaksi" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{transaksi_kode_transaksi}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Kode Instansi" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{instansi_kode_instansi}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Kode Pembayaran" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{pembayaran_kode_transaksi}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     transaksi.`kode_transaksi` AS transaksi_kode_transaksi,
+     transaksi.`tanggal_transaksi` AS transaksi_tanggal_transaksi,
+     transaksi.`tanggal_mulai` AS transaksi_tanggal_mulai,
+     transaksi.`tanggal_akhir` AS transaksi_tanggal_akhir,
+     FORMAT(transaksi.total_tagihan, 2, 'id_ID') AS transaksi_total_tagihan,
+     transaksi.`total_peserta` AS transaksi_total_peserta,
+     transaksi.`status` AS transaksi_status,
+     transaksi.`kode_instansi` AS transaksi_kode_instansi,
+     transaksi.`nip` AS transaksi_nip,
+     transaksi.`status_pembayaran` AS transaksi_status_pembayaran,
+     instansi.`kode_instansi` AS instansi_kode_instansi,
+     instansi.`nama_instansi` AS instansi_nama_instansi,
+     instansi.`penanggung_jawab` AS instansi_penanggung_jawab,
+     instansi.`alamat_instansi` AS instansi_alamat_instansi,
+     instansi.`nomor_telp` AS instansi_nomor_telp,
+     instansi.`email` AS instansi_email,
+     instansi.`perubahan_terakhir` AS instansi_perubahan_terakhir,
+     pembayaran.`kode_pembayaran` AS pembayaran_kode_pembayaran,
+     pembayaran.`kode_transaksi` AS pembayaran_kode_transaksi,
+     FORMAT(pembayaran.jumlah_bayar, 2, 'id_ID') AS pembayaran_jumlah_bayar,
+     pembayaran.`tipe_bayar` AS pembayaran_tipe_bayar,
+     pembayaran.`nip` AS pembayaran_nip,
+     pembayaran.`tgl_bayar` AS pembayaran_tgl_bayar,
+     tb_user.`nip` AS tb_user_nip,
+     tb_user.`username` AS tb_user_username,
+     tb_user.`password` AS tb_user_password,
+     tb_user.`nama` AS tb_user_nama,
+     tb_user.`jenis_kelamin` AS tb_user_jenis_kelamin,
+     tb_user.`alamat` AS tb_user_alamat,
+     tb_user.`tgl_lahir` AS tb_user_tgl_lahir,
+     tb_user.`no_telp` AS tb_user_no_telp,
+     tb_user.`email` AS tb_user_email,
+     tb_user.`last_login` AS tb_user_last_login,
+     tb_user.`hak_akses` AS tb_user_hak_akses,
+     tb_user.`aktif` AS tb_user_aktif
+FROM
+     `transaksi` transaksi INNER JOIN `instansi` instansi ON transaksi.`kode_instansi` = instansi.`kode_instansi`
+     INNER JOIN `pembayaran` pembayaran ON transaksi.`kode_transaksi` = pembayaran.`kode_transaksi`
+     INNER JOIN `tb_user` tb_user ON transaksi.`nip` = tb_user.`nip`
+     AND tb_user.`nip` = pembayaran.`nip`
+WHERE
+     transaksi.`kode_transaksi` = $P{Kode Transaksi} and pembayaran.`kode_pembayaran` = $P{Kode Pembayaran}]]>
+	</queryString>
+	<field name="transaksi_kode_transaksi" class="java.lang.String"/>
+	<field name="transaksi_tanggal_transaksi" class="java.lang.String"/>
+	<field name="transaksi_tanggal_mulai" class="java.lang.String"/>
+	<field name="transaksi_tanggal_akhir" class="java.lang.String"/>
+	<field name="transaksi_total_tagihan" class="java.lang.String"/>
+	<field name="transaksi_total_peserta" class="java.lang.Integer"/>
+	<field name="transaksi_status" class="java.lang.String"/>
+	<field name="transaksi_kode_instansi" class="java.lang.String"/>
+	<field name="transaksi_nip" class="java.lang.String"/>
+	<field name="transaksi_status_pembayaran" class="java.lang.String"/>
+	<field name="instansi_kode_instansi" class="java.lang.String"/>
+	<field name="instansi_nama_instansi" class="java.lang.String"/>
+	<field name="instansi_penanggung_jawab" class="java.lang.String"/>
+	<field name="instansi_alamat_instansi" class="java.lang.String"/>
+	<field name="instansi_nomor_telp" class="java.lang.String"/>
+	<field name="instansi_email" class="java.lang.String"/>
+	<field name="instansi_perubahan_terakhir" class="java.lang.String"/>
+	<field name="pembayaran_kode_pembayaran" class="java.lang.String"/>
+	<field name="pembayaran_kode_transaksi" class="java.lang.String"/>
+	<field name="pembayaran_jumlah_bayar" class="java.lang.String"/>
+	<field name="pembayaran_tipe_bayar" class="java.lang.String"/>
+	<field name="pembayaran_nip" class="java.lang.String"/>
+	<field name="pembayaran_tgl_bayar" class="java.lang.String"/>
+	<field name="tb_user_nip" class="java.lang.String"/>
+	<field name="tb_user_username" class="java.lang.String"/>
+	<field name="tb_user_password" class="java.lang.String"/>
+	<field name="tb_user_nama" class="java.lang.String"/>
+	<field name="tb_user_jenis_kelamin" class="java.lang.String"/>
+	<field name="tb_user_alamat" class="java.lang.String"/>
+	<field name="tb_user_tgl_lahir" class="java.lang.String"/>
+	<field name="tb_user_no_telp" class="java.lang.String"/>
+	<field name="tb_user_email" class="java.lang.String"/>
+	<field name="tb_user_last_login" class="java.lang.String"/>
+	<field name="tb_user_hak_akses" class="java.lang.String"/>
+	<field name="tb_user_aktif" class="java.lang.String"/>
+	<title>
+		<band height="134" splitType="Stretch">
+			<image>
+				<reportElement uuid="1ae0905f-ef80-41a2-a45a-6bcf74b58bba" x="0" y="0" width="248" height="134"/>
+				<imageExpression><![CDATA["C:\\Users\\WILDAN\\Documents\\NetBeansProjects\\SistemAdministrasiBuPer\\src\\asset\\Webp.net-resizeimage (1).png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="46b95e17-c57b-4176-8347-8a27ec884425" x="360" y="55" width="120" height="36"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KWITANSI]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="82" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="ef8f0e29-ec05-41ae-a278-09e32c28ef0b" x="0" y="20" width="257" height="42"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="7029101b-1467-4127-b43b-0d65cfd3c410" x="545" y="0" width="257" height="82"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="044e6d4c-f619-4a5c-9253-020a3a47d868" x="677" y="0" width="125" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pembayaran_kode_pembayaran}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1b5b9f5-ae35-4269-b26e-b194f215c758" x="677" y="20" width="125" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pembayaran_tgl_bayar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1c8453af-987b-448f-b2f2-bfb355262077" x="558" y="40" width="106" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Kode Transaksi]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9631beda-1171-4382-ba1b-12016dd1bee4" x="677" y="40" width="125" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{transaksi_kode_transaksi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="098649be-75fb-4572-92a4-468b1f3d2d86" x="664" y="0" width="13" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="110d90b9-7045-44be-86a6-a1de2767893b" x="664" y="20" width="13" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6c645cc7-7318-4a79-b160-c09f05d7b044" x="664" y="40" width="13" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6016d50a-4d65-48d1-82c0-3b5e91cf539d" x="677" y="62" width="125" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pembayaran_tipe_bayar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="361a0f85-6edd-4bfb-95e2-04733c23f813" x="557" y="60" width="106" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tipe Pembayaran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2b155b0b-ab2e-4703-9765-357a169a4609" x="663" y="60" width="13" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="86837b80-29ad-48aa-8151-a8f13f9e2a49" x="556" y="20" width="107" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tanggal dan Waktu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e38981d8-99eb-4da9-8d9c-b315334de705" x="557" y="0" width="107" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Kode Pembayaran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7a7758b4-b2ad-460a-a289-fc103c86ef95" x="0" y="20" width="107" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tanggal Mulai]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f57d2b64-a7d4-42e9-90a7-7839559f9341" x="121" y="20" width="136" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{transaksi_tanggal_mulai}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1f6dc575-1cc2-4a35-b90d-947b2d2c6b5a" x="106" y="20" width="15" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d7880e5d-6639-4b38-87ce-1966f018b131" x="0" y="40" width="107" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tanggal Akhir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c08976c-4ca5-4b1b-9de9-1e292cac51b6" x="106" y="40" width="15" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8d9961e2-cec4-41f7-9862-071d4da457d8" x="121" y="40" width="136" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{transaksi_tanggal_akhir}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23">
+			<staticText>
+				<reportElement uuid="9b2303e3-23ea-4b98-bf76-42425fe358cb" x="0" y="3" width="106" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daftar Fasilitas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9d7b3d7f-152a-4d69-a0a8-885ab134c7c4" x="384" y="3" width="106" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daftar Golongan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="142" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="fe7f9339-3fb5-4583-b416-dab3410f2438" key="table 2" style="table 2" x="0" y="0" width="360" height="142"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Fasilitas" uuid="0db34efe-1982-40c3-832f-f3e94878a521">
+						<datasetParameter name="Kode Transaksi">
+							<datasetParameterExpression><![CDATA[$F{transaksi_kode_transaksi}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="9b9020a6-20ec-4490-9a82-9390a57a6f68">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="1407836b-feba-40c3-99c0-4a6cab3fe1cb" x="0" y="0" width="90" height="30"/>
+								<box leftPadding="5"/>
+								<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+								<text><![CDATA[Nama Fasilitas]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="21" rowSpan="1">
+							<box leftPadding="0"/>
+							<staticText>
+								<reportElement uuid="c8e18f87-7c12-46d3-9ce8-313a561785d3" x="0" y="0" width="90" height="21"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="6995d634-082d-403e-a501-7b5b0cbca086" x="0" y="0" width="90" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{fasilitas_nama_fasilitas}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="49d65b25-ff66-4ae1-bb28-919930ae3fd5">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="bd86e983-62bd-4309-b6ec-30f334553b41" x="0" y="0" width="90" height="30"/>
+								<box leftPadding="5"/>
+								<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+								<text><![CDATA[Harga (Rp)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="21" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="0a2c6e47-2d6e-43f5-9d5c-1c6fea33df2a" x="0" y="0" width="90" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{fasilitas_harga_fasilitas}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="63c34653-3868-41d4-b633-504d03021611">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="6be9a963-a663-4e69-aa04-e02b1e9e07f3" x="0" y="0" width="90" height="30"/>
+								<box leftPadding="5"/>
+								<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+								<text><![CDATA[Jumlah]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="21" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="e80b1cdf-07e0-4252-b734-9a1f28572d20" x="0" y="0" width="90" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{detail_transaksi_jumlah_fasilitas}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="54e968df-00f1-48e0-a129-d91451087b3d">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="30d69352-9901-4b44-a193-dc0a97373e0a" x="0" y="0" width="90" height="30"/>
+								<box leftPadding="5"/>
+								<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+								<text><![CDATA[Total (Rp)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="4b291c87-736a-496a-b23e-308315e7f1b7" x="0" y="0" width="90" height="21"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{FINAL_TOTAL}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="86cb3646-2f36-4e40-b729-0b88275a006e" x="0" y="0" width="90" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement uuid="b5b83387-ce45-4fc0-bfdf-5026572261a8" key="table 3" style="table 3" x="384" y="0" width="418" height="142"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Golongan" uuid="5d03a818-f134-40c4-8b8b-1ac232e36671">
+						<datasetParameter name="Kode Instansi">
+							<datasetParameterExpression><![CDATA[$F{instansi_kode_instansi}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="69" uuid="e08f0bd3-9567-4988-81aa-ba413226f398">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="fc8ccf08-411a-4040-800c-97a1e7c184fa" x="0" y="0" width="69" height="30"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<text><![CDATA[Golongan]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="21" rowSpan="1">
+							<staticText>
+								<reportElement uuid="b9375d8c-f1b5-4850-9dd3-adf6ab4f6be1" x="0" y="0" width="69" height="21"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<text><![CDATA[TOTAL (Rp)]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="007b29fe-591a-449e-9a65-0aa0e292dec7" x="0" y="0" width="69" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{golongan_nama_golongan}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="01cdf02c-86fb-4c58-81e7-b85a32ff53ce">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="c00406e9-2137-417f-ad94-2f9c6adf4ab4" x="0" y="0" width="90" height="30"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<text><![CDATA[Harga (Rp)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="21" rowSpan="1"/>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="090e9ad1-958d-4827-be49-54833202bfcd" x="0" y="0" width="90" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{golongan_harga}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="55" uuid="bad812f5-1eab-4a2d-9359-8cd399014889">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="93054902-c3c9-406c-b482-19f8bf252946" x="0" y="0" width="55" height="30"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<text><![CDATA[Peserta]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="21" rowSpan="1"/>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="4c861fca-73c8-44c6-aeae-b62907ca4ca6" x="0" y="0" width="55" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{detail_instansi_jumlah_peserta}+" Orang"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="55" uuid="12fb9244-8e0a-4ef2-a7fc-13d10269da12">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="2471c066-8396-4461-beba-4a66e51d6595" x="0" y="0" width="55" height="30"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<text><![CDATA[Panitia]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="21" rowSpan="1"/>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="2e6f7854-4156-4076-9ecf-eeb9279c933d" x="0" y="0" width="55" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{detail_instansi_jumlah_panitia}+" Orang"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="59" uuid="0fb1667f-8704-49fd-925f-d785fc285aea">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="b7ac2b31-1138-4352-a7a6-c88a992f05b3" x="0" y="0" width="59" height="30"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<text><![CDATA[Pembina]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="21" rowSpan="1"/>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="79e66a7e-2466-4100-a80a-23286cace918" x="0" y="0" width="59" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{detail_instansi_jumlah_pembina}+" Orang"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="a678aad7-a965-4ece-8e82-aeab2cfa8307">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="8641d951-1aa4-446b-80b9-36e56c656e77" x="0" y="0" width="90" height="30"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<text><![CDATA[Total (Rp)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="99a71dd6-30e6-4598-95ea-dc08f9108694" x="0" y="0" width="90" height="21"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{FINAL_TOTAL}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="8c09eb4d-d0ee-4d38-a01f-b14f47fa23b3" x="0" y="0" width="90" height="20"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="123">
+			<textField>
+				<reportElement uuid="c6a86c7f-c953-467f-ba80-8d564dfe319b" x="106" y="103" width="115" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_user_nama}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fa66175a-dbff-4812-9e16-3a38c07d72ac" x="106" y="37" width="115" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Penerima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ba2da5cc-c80b-4822-bb7d-24d4df6f7eb8" x="504" y="37" width="130" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Penanggung Jawab]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1e2cdcdc-c8f7-40e3-8ca1-b8102a4ac764" x="504" y="103" width="130" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instansi_penanggung_jawab}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="675c6a94-cf26-42c4-a969-4217ed97d732" x="574" y="0" width="89" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Biaya]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="786ec16a-2ba0-462a-8e7e-fade68fe8f97" x="663" y="0" width="139" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rp. "+$F{transaksi_total_tagihan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8742b4ed-52ba-4662-bbe2-cd0d3e1fb0d3" x="159" y="0" width="201" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rp. "+$F{pembayaran_jumlah_bayar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f55dc571-9c81-42e8-8df4-5d22366a39a8" x="0" y="0" width="159" height="20"/>
+				<box leftPadding="5"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jumlah Pembayaran]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>
